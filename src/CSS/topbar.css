@@ -1,0 +1,97 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e9ecef;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.navbarInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px; /* control spacing manually */
+}
+
+
+.navLinksContainer {
+  height: 100%;
+}
+
+.navLink {
+  padding: 0 16px;
+  height: 50px; /* Matches navbar height for perfect centering */
+  font-size: 14px;
+  font-weight: 600;
+  color: #495057;
+  transition: all 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.navLink:hover {
+  color: #228be6;
+}
+
+/* The Animated Underline for Active State */
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background-color: #228be6;
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.navLink.active {
+  color: #228be6;
+}
+
+.navLink.active::after {
+  transform: scaleX(1);
+}
+
+.userButton {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  gap: 10px;
+  border: 1px solid transparent;
+}
+
+.userButton:hover {
+  background-color: #f8f9fa;
+  border-color: #f1f3f5;
+}
+
+.menuHeader {
+  padding: 8px 12px;
+}
+
+.chevron {
+  color: #adb5bd;
+  transition: transform 0.2s ease;
+}
+
+/* Rotates chevron when Mantine menu is open (automatic with data attribute) */
+.userButton[data-expanded] .chevron {
+  transform: rotate(180deg);
+}
+
+.navbarSpacer {
+  height: 50px;
+}

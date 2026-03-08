@@ -1,0 +1,94 @@
+/* =========================
+   PHARMA-CHAIN VAULT NAVBAR
+   ========================= */
+
+.pcv-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 1000;
+}
+
+.pcv-navbar-inner {
+  height: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Spacer to offset fixed navbar */
+.pcv-navbar-spacer {
+  height: 64px;
+}
+
+/* Navigation links */
+.pcv-nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  text-decoration: none;
+  padding-bottom: 4px;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.pcv-nav-link:hover {
+  color: #111827;
+}
+
+.pcv-nav-link.pcv-active {
+  color: #4a90e2;
+  border-bottom: 2px solid #4a90e2;
+}
+
+/* Buttons */
+pcv-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Base button */
+.pcv-nav-btn {
+  height: 34px;
+   min-width: 96px;
+  padding: 0 18px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  background: none;
+  outline: none;
+  border: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+/* Primary */
+.pcv-nav-btn-primary {
+  background-color: #4a90e2;
+  color: #ffffff;
+  
+}
+
+.pcv-nav-btn-primary:hover {
+  background-color: #357abd;
+}
+
+/* Outline */
+.pcv-nav-btn-outline {
+  border: 1px solid #4a90e2;
+  color: #4a90e2;
+  background-color: transparent;
+}
+
+.pcv-nav-btn-outline:hover {
+  background-color: rgba(74, 144, 226, 0.06);
+}

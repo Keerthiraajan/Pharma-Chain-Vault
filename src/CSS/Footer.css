@@ -1,0 +1,53 @@
+.footer {
+  background-color: #f8fafc; /* soft off-white */
+  border-top: 1px solid #e5e7eb;
+  padding: 48px 0 32px;
+}
+
+.footer-title {
+  font-size: 1.0rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.footer-description {
+  font-size: 0.4rem;
+  color: #6b7280;
+  max-width: 340px;
+  line-height: 1.6;
+}
+
+.footer-points {
+  font-size: 0.85rem;
+  color: #374151;
+}
+
+.footer-points svg {
+  color: #2563eb;
+}
+
+.footer-bottom {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-align: center;
+  margin-left: 480px;
+}
+
+.footer-link {
+  cursor: pointer;
+  color: #374151;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.footer-contact {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.footer-contact svg {
+  color: #6b7280;
+}

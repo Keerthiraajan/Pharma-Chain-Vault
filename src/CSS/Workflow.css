@@ -1,0 +1,133 @@
+/* ===============================
+   Workflow Section
+================================ */
+.workflow-section {
+  background-color: #ffffff;
+  padding: 28px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===============================
+   Title Area
+================================ */
+.workflow-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.85rem;
+  color: #111827;
+  letter-spacing: -0.015em;
+}
+
+.workflow-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #64748b;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* ===============================
+   Card Container
+================================ */
+.workflow-card {
+  background: #ffffff;
+  padding: 24px 28px 32px;
+  border: 1px solid #f1f5f9;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, 0.06);
+  margin-bottom: 28px;
+}
+
+/* ===============================
+   Timeline Wrapper
+================================ */
+.workflow-timeline {
+  position: relative;
+}
+
+/* Horizontal connecting line */
+.workflow-line {
+  position: absolute;
+  top: 24px; /* perfectly aligns with icon center */
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background-color: #e5e7eb;
+  z-index: 0;
+}
+
+/* Grid container */
+.workflow-grid {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===============================
+   Individual Step
+================================ */
+.workflow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Step Icon */
+.workflow-icon {
+  background-color: #ffffff !important;
+  color: #2563eb !important;
+  border: 1.5px solid #2563eb;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 0 0 6px #ffffff;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.workflow-step:hover .workflow-icon {
+  transform: translateY(-2px);
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 18px -6px rgba(37, 99, 235, 0.35),
+              0 0 0 6px #ffffff;
+}
+
+/* ===============================
+   Step Text
+================================ */
+.step-title {
+  margin-top: 14px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.step-description {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.6;
+  max-width: 200px;
+}
+
+/* ===============================
+   Responsive
+================================ */
+@media (max-width: 900px) {
+  .workflow-grid {
+    flex-wrap: wrap;
+    gap: 28px;
+  }
+
+  .workflow-line {
+    display: none;
+  }
+
+  .workflow-title {
+    font-size: 1.6rem;
+  }
+
+  .workflow-card {
+    padding: 24px 20px;
+  }
+}
