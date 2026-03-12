@@ -8,6 +8,7 @@ import MyFormulas from "./Pages/MyFormulas";
 import UploadFormula from "./Pages/UploadFormula";
 import FormulasLayout from "./Components/FormulasLayout";
 import NotFound from "./Components/NotFound";
+import LicenseRequest from "./Pages/LicenseRequest";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route index element={<MyFormulas />} />
         <Route path="upload" element={<UploadFormula />} />
       </Route>
+      <Route path = "/licenses" element = {<LicenseRequest />} />
     </Routes>
     
   );
