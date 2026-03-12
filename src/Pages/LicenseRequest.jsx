@@ -88,7 +88,7 @@ const LicenseRequest = () => {
 
                 <Group justify="space-between" align="flex-start">
 
-                  {/* Left Side - Request Details */}
+           
 
                   <Stack gap={2}>
 
@@ -149,10 +149,6 @@ const LicenseRequest = () => {
 
           </Stack>
 
-
-          {/* ------------------------------------------------ */}
-          {/* Active Licenses */}
-          {/* ------------------------------------------------ */}
 
           <Stack gap="md" mt="xl">
 

@@ -23,25 +23,57 @@ const Register = () => {
   const is_valid = userData.fullname !== '' && userData.email !== '' && userData.role !== '' && userData.type !== '' && userData.password !== '' && userData.cpassword !== '' ;
  
 
-   const handleRegister = ( e ) => {
+   const handleRegister = async (e) => {
 
-        setError('');
-        e.preventDefault();
-        console.log( userData );    
+    e.preventDefault();
+    setError('');
 
-        if ( userData.password.length < 6 ) {
-            setError('Password must be at least 6 characters long.');
+    if (userData.password.length < 6) {
+        setError('Password must be at least 6 characters long.');
+        return;
+    }
+
+    if (userData.password !== userData.cpassword) {
+        setError('Passwords do not match.');
+        return;
+    }
+
+    try {
+
+        const response = await fetch("http://localhost:5000/api/auth/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                full_name: userData.fullname,
+                email: userData.email,
+                password: userData.password,
+                role: userData.role,
+                state: "Tamil Nadu",   // temporary if not collected
+                city: "Chennai"
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            setError(data.message || "Registration failed");
             return;
         }
 
-        else if ( userData.password != userData.cpassword) {
-            setError('Passwords do not match.');
-            return;
-        }
-        setOpened(true);
+        console.log("User registered:", data);
 
-   }
+        setOpened(true); // open success modal
 
+    } catch (error) {
+
+        console.error(error);
+        setError("Server error");
+
+    }
+
+};
   return (
     
     <div className="page-wrapper">

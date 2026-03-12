@@ -15,18 +15,49 @@ const Login = () => {
 
   const isvalid = email !== '' && password !== '';
 
-  const handleSubmit  = (e) => {
-    e.preventDefault();
-    console.log({ email, password });
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    setError('');
-    setLoading(true);
+  setError('');
+  setLoading(true);
 
-    setTimeout(() => {
+  try {
+
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setError(data.message || "Login failed");
       setLoading(false);
-      navigate('/dashboard');
-    }, 2000);
-  };
+      return;
+    }
+
+    // store logged user
+    localStorage.setItem("user", JSON.stringify(data.user));
+
+    setLoading(false);
+
+    // redirect
+    navigate('/dashboard');
+
+  } catch (error) {
+
+    console.error(error);
+    setError("Server error");
+    setLoading(false);
+
+  }
+};
 
   return (
     <div className="page-wrapper">
