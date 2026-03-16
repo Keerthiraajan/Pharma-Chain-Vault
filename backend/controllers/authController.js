@@ -2,17 +2,17 @@ const db = require("../config/db");
 
 exports.registerUser = (req, res) => {
 
-    const { full_name, email, password, role, state, city } = req.body;
+    const { full_name, email, password, role } = req.body;
 
     const sql = `
         INSERT INTO users 
-        (full_name, email, password_hash, role, state, city)
-        VALUES (?, ?, ?, ?, ?, ?)
+        (full_name, email, password_hash, role)
+        VALUES (?, ?, ?, ?)
     `;
 
     db.query(
         sql,
-        [full_name, email, password, role, state, city],
+        [full_name, email, password, role],
         (err, result) => {
 
             if (err) {
@@ -77,5 +77,16 @@ exports.loginUser = (req, res) => {
 
         console.log("User logged in:", req.session.user);
     });
+};
+
+exports.logoutUser = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: "Logout failed" });
+    }
+
+    res.clearCookie("connect.sid"); // session cookie
+    res.json({ message: "Logged out successfully" });
+  });
 };
 
