@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Eye, EyeOff, Shield, Lock, CheckCircle2 } from 'lucide-react';
 import { Link , useNavigate } from 'react-router-dom';
 import { ThreeDot } from 'react-loading-indicators';
@@ -15,6 +15,21 @@ const Login = () => {
 
   const isvalid = email !== '' && password !== '';
 
+  useEffect(() => {
+      fetch("http://localhost:5000/api/auth/check-session", {
+        credentials: "include"
+      })
+      .then(res => res.json())
+      .then(data => {
+
+        if(data.loggedIn) {
+          navigate("/dashboard");
+        }
+        console.log(data);
+
+      });
+  }, []);
+
   const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -28,6 +43,7 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: "include",
       body: JSON.stringify({
         email: email,
         password: password

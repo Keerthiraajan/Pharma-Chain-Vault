@@ -49,9 +49,7 @@ const Register = () => {
                 full_name: userData.fullname,
                 email: userData.email,
                 password: userData.password,
-                role: userData.role,
-                state: "Tamil Nadu",   // temporary if not collected
-                city: "Chennai"
+                role: userData.role
             })
         });
 
