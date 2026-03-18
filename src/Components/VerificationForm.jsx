@@ -6,11 +6,14 @@
 
   const VerificationForm = () => {
 
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log("User from localStorage: ", user);
 
-    const [userRole] = useState('researcher');      // 'researcher' | 'company'
-    const [researcherType] = useState('student');  // 'student' | 'working' | 'individual'
+    const [userRole] = useState(user?.role );      // 'researcher' | 'company'
+    const [researcherType] = useState(user?.type);  // 'student' | 'working' | 'individual'
     const [opened, { open, close }] = useDisclosure(false);
-    const [otp, setOtp] = useState('');
+  
+
 
     const [formData, setFormData] = useState( {
       role : userRole,
@@ -42,17 +45,44 @@
       }));
     };
 
-    const handlesubmit = (e) => {
-      console.log("Submitting form");
+    const handlesubmit = async(e) => {
+      
       e.preventDefault();
-      console.log("Form Data Submitted: ", formData);
+      console.log("Form Data: ", formData);
+      
+      if ( userRole === 'RESEARCHER' && researcherType === 'Working Professional' ) {
+
+        try {
+
+          const reponse = await fetch( "http://localhost:5000/api/auth/verify-user-res-wor" , {
+            method : "POST",
+            credentials : 'include',
+            headers : {
+              "Content-Type" : "application/json"
+            },
+            body : JSON.stringify({
+              state: formData.state,
+              city: formData.city,
+              organization_name: formData.organizationName,
+              designation: formData.designation,
+              work_email: formData.officialEmail,
+              years_of_experience: formData.yearsOfExperience
+            })
+          });
+
+          if (reponse.ok) {
+            console.log("Verification successful");
+          }
+        }
+
+        catch (error) {
+          console.error("Verification error: ", error);
+        }
+      }
+
     }
 
-    const otpverify = () => {
 
-      console.log("Verifying OTP: ", otp);
-      close();
-    }
     return (
       <div className="page-wrapper">
         <div className="split-container">
@@ -91,12 +121,12 @@
               <div className="field-row">
                   <div className="field">
                   <label>Your Name</label>
-                  <input type="text" value= "Keerthi" disabled />
+                  <input type="text" value= {user?.full_name} disabled />
                   </div>
 
                   <div className="field1">
                   <label>Personal Email</label>
-                  <input type="text"  value = "keerthi@gmail.com" disabled/>
+                  <input type="text"  value = {user?.email} disabled/>
                   </div>
               </div>
 
@@ -111,42 +141,8 @@
                   <input type="text" placeholder="Enter city" value={formData.city} onChange={handleChange} name="city"/>
               </div>
               </div>
-      
-              {userRole === 'researcher' && researcherType === 'student' && (
-                <>
-                  <div className="field">
-                    <label>University / College Name</label>
-                    <input type="text" placeholder="Institution name" value={formData.institutionName} onChange={handleChange} name="institutionName"/>
-                  </div>
 
-                  <div className="field">
-                      <label>College Email-ID</label>
-                      <div className="input-with-button">
-                          <input
-                          type="text"
-                          placeholder="college@email.edu" value={formData.collegeEmail} onChange={handleChange} name='collegeEmail'
-                          />
-                          <button type="button" className="verify-btn" onClick={open} disabled={formData.collegeEmail === ''}>
-                          Verify
-                          </button>
-                      </div>
-                  </div>
-                  
-                  <div className="field-row">
-                      <div className="field">
-                      <label>Degree / Program</label>
-                      <input type="text" placeholder="B.Tech / M.Sc / PhD" value={formData.degreeProgram} onChange={handleChange} name="degreeProgram"/>
-                      </div>
-                      
-                      <div className="field">
-                      <label>Student Registration Number :</label>
-                      <input type="text" placeholder="College ID number" value={formData.studentRegistrationNumber} onChange={handleChange} name="studentRegistrationNumber"/>
-                      </div>
-                  </div>
-                </>
-              )}
-
-              {userRole === 'researcher' && researcherType === 'working' && (
+              {userRole === 'RESEARCHER' && researcherType === 'Working Professional' && (
                 <>
                   <div className="field">
                     <label>Organization Name</label>
@@ -168,9 +164,6 @@
                           onChange={handleChange}
                           name='officialEmail'
                           />
-                          <button type="button" className="verify-btn"  onClick={open} disabled={formData.officialEmail === ''} >
-                          Verify
-                          </button>
                       </div>
                   </div>
                   
@@ -181,7 +174,7 @@
                 </>
               )}
 
-              {userRole === 'researcher' && researcherType === 'individual' && (
+              {userRole === 'RESEARCHER' && researcherType === 'Individual' && (
                 <>
                   <div className="field">
                     <label>Research Domain</label>
@@ -200,7 +193,7 @@
                 </>
               )}
 
-              {userRole === 'company' && (
+              {userRole === 'Company' && (
                 <>
                   <div className="field">
                     <label>Company Name</label>
@@ -231,42 +224,6 @@
             </form>
           </div>
         </div>
-
-        <Modal
-        opened={opened}
-        onClose={close}
-        title="OTP Verification"
-        centered
-        radius="md"
-      >
-        <Text size="sm" mb="xs">
-          Enter OTP sent to Your Official Email Address
-        </Text>
-
-        <PinInput
-          length={6}
-          value={otp}
-          onChange={setOtp}
-          autoFocus
-          inputType="numeric"
-          oneTimeCode
-          size="lg"
-          mt="md"
-        />
-
-        <Group mt="lg" justify="right">
-          <Button variant="default" onClick={close}>
-            Cancel
-          </Button>
-
-          <Button
-            disabled={otp.length !== 6}
-            onClick={ otpverify}
-          >
-            Verify OTP
-          </Button>
-        </Group>
-      </Modal>
 
 
       </div>

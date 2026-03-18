@@ -49,7 +49,8 @@ const Register = () => {
                 full_name: userData.fullname,
                 email: userData.email,
                 password: userData.password,
-                role: userData.role
+                role: userData.role,
+                type: userData.type
             })
         });
 
@@ -199,7 +200,6 @@ const Register = () => {
 
                 {userData.role === 'researcher' && (
                     <>
-                    <option value="Student">Student</option>
                     <option value="Working Professional">Working Professional</option>
                     <option value="Individual">Individual</option>
                     </>

@@ -1,21 +1,5 @@
-import {
-  Box,
-  Group,
-  Image,
-  Container,
-  Menu,
-  Avatar,
-  Text,
-  UnstyledButton,
-  rem,
-} from '@mantine/core';
-import {
-  IconUser,
-  IconLogout,
-  IconChevronDown,
-  IconUserCircle,
-  IconSettings
-} from '@tabler/icons-react';
+import {Box,Group,Image,Container,Menu,Avatar,Text,UnstyledButton,rem, } from '@mantine/core';
+import {IconUser,IconLogout,IconChevronDown,IconUserCircle,IconSettings} from '@tabler/icons-react';
 import logo from '../assets/logo.jpg';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../CSS/topbar.css';
@@ -23,6 +7,26 @@ import '../CSS/topbar.css';
 const TopBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/logout", {
+        method: "POST",
+        credentials: "include"
+      });
+
+      if (res.ok) {
+        localStorage.removeItem("user");
+        navigate("/login");
+      }
+
+    } catch (error) {
+      console.error("Logout failed:", error);
+
+    }
+  };
 
   const navItems = [
     { label: 'Dashboard', link: '/dashboard' },
@@ -62,26 +66,26 @@ const TopBar = () => {
               width={220}
               withArrow
               transitionProps={{ transition: 'pop-top-right', duration: 150 }}
-            >
+            > 
               <Menu.Target>
                 <UnstyledButton className="userButton">
                   <Avatar radius="xl" color="blue" size={30} src={null}>
                     <IconUser size={16} />
                   </Avatar>
                   <Box visibleFrom="xs">
-                    <Text size="sm" fw={500} style={{ lineHeight: 1 }}>Keerthi</Text>
+                    <Text size="sm" fw={500} style={{ lineHeight: 1 }}>{ user?.name}</Text>
                   </Box>
                   <IconChevronDown size={14} className="chevron" />
                 </UnstyledButton>
               </Menu.Target>
-
+                
               <Menu.Dropdown>
                 <div className="menuHeader">
                   <Text size="xs" fw={700} c="dimmed" tt="uppercase" lts={1}>
                     Account
                   </Text>
-                  <Text size="sm" fw={600}>Keerthi </Text>
-                  <Text size="xs" c="dimmed">admin@pharma.com</Text>
+                  <Text size="sm" fw={600}>{user?.full_name} </Text>
+                  <Text size="xs" c="dimmed">{user?.email}</Text>
                 </div>
 
                 <Menu.Divider />
@@ -104,10 +108,7 @@ const TopBar = () => {
                 <Menu.Item
                   color="red"
                   leftSection={<IconLogout size={16} stroke={1.5} />}
-                  onClick={() => {
-                      localStorage.removeItem("verificationDismissed");
-                      navigate('/login');
-                  }}
+                  onClick={() => { handleLogout() } }
                 >
                   Logout
                 </Menu.Item>
