@@ -2,17 +2,17 @@ const db = require("../config/db");
 
 exports.registerUser = (req, res) => {
 
-    const { full_name, email, password, role } = req.body;
+    const { full_name, email, password, role,type } = req.body;
 
     const sql = `
         INSERT INTO users 
-        (full_name, email, password_hash, role)
-        VALUES (?, ?, ?, ?)
+        (full_name, email, password_hash, role, type)
+        VALUES (?, ?, ?, ?,?)
     `;
 
     db.query(
         sql,
-        [full_name, email, password, role],
+        [full_name, email, password, role,type],
         (err, result) => {
 
             if (err) {
@@ -59,19 +59,21 @@ exports.loginUser = (req, res) => {
         }
 
             req.session.user = {
-                id: user.id,
+                id: user.user_id,
                 full_name: user.full_name,
                 email: user.email,
-                role: user.role
+                role: user.role,
+                type:user.type
             };
 
         res.json({
             message: "Login successful",
             user: {
-                id: user.id,
+                id: user.user_id,
                 full_name: user.full_name,
                 email: user.email,
-                role: user.role
+                role: user.role,
+                type:user.type
             }
         });
 
@@ -90,3 +92,39 @@ exports.logoutUser = (req, res) => {
   });
 };
 
+
+
+exports.verifyUserResWorking = (req, res) => {
+
+
+    const user_id = req.session.user ? req.session.user.id : null;
+    console.log("User ID from session:", user_id);
+    console.log(req.body);
+
+    const { state , city , organization_name, designation, work_email , years_of_experience} = req.body;
+
+    const sql = 'INSERT INTO researcher_profiles (user_id, state, city,organization_name, designation, work_email, years_of_experience) VALUES (?, ?, ?, ?, ?, ?, ?)';
+
+    db.query(sql, [user_id, state, city, organization_name,  designation, work_email, years_of_experience], (err, result) => {
+
+        if (err) {
+            console.error("Error inserting researcher profile:", err);
+            return res.status(500).json({ message: "Failed to save researcher profile" });
+        }
+
+        res.json({ message: "Researcher profile saved successfully" });
+
+    });
+
+    const sql2 = 'UPDATE users SET status = ? WHERE user_id = ?';
+
+    db.query(sql2, ['verified', user_id], (err) => { 
+
+        if (err) {
+            console.error("Error updating user status:", err);
+            return res.status(500).json({ message: "Failed to update user status" });
+        }
+        console.log("User status updated to verified");
+
+    });
+};

@@ -6,9 +6,11 @@ const authController = require("../controllers/authController");
 router.post("/register", authController.registerUser);
 router.post("/login", authController.loginUser);
 router.post("/logout", authController.logoutUser);
+router.post("/verify-user-res-wor", authController.verifyUserResWorking);
+//router.post("/verify-user-res-indi", authController.verifyUserResIndividuall);
+//router.post("/verify-user-company", authController.verifyUserCompany);
 
 
-// TEMPORARY - just to test session
 router.get('/check-session', (req, res) => {
     console.log("Session Data:", req.session);         // full session object
     console.log("User in session:", req.session.user); // just the user part

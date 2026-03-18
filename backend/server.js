@@ -12,8 +12,6 @@ app.use(cors({
 
 
 const authRoutes = require("./routes/authRoutes");
-const companyRoutes = require("./routes/companyRoutes");
-const researcherRoutes = require("./routes/researcherRoutes");
 
 
 
@@ -32,8 +30,7 @@ app.use(session({
 
 
 app.use("/api/auth", authRoutes);
-app.use("/api/company", companyRoutes);
-app.use("/api/researcher", researcherRoutes);
+
 
 
 
