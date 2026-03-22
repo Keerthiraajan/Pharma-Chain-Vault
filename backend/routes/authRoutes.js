@@ -7,8 +7,7 @@ router.post("/register", authController.registerUser);
 router.post("/login", authController.loginUser);
 router.post("/logout", authController.logoutUser);
 router.post("/verify-user-res-wor", authController.verifyUserResWorking);
-//router.post("/verify-user-res-indi", authController.verifyUserResIndividuall);
-//router.post("/verify-user-company", authController.verifyUserCompany);
+router.post("/verify-user-company", authController.verifyUserCompany);
 
 
 router.get('/check-session', (req, res) => {

@@ -116,7 +116,7 @@ exports.verifyUserResWorking = (req, res) => {
 
     });
 
-    const sql2 = 'UPDATE users SET status = ? WHERE user_id = ?';
+    const sql2 = 'UPDATE users SET account_status = ? WHERE user_id = ?';
 
     db.query(sql2, ['verified', user_id], (err) => { 
 
@@ -128,3 +128,36 @@ exports.verifyUserResWorking = (req, res) => {
 
     });
 };
+
+
+exports.verifyUserCompany = (req, res ) => {
+
+    const user_id = req.session.user ? req.session.user.id : null;
+
+    const {state , city , company_name , industry_type , gst_number , registration_id} = req.body;
+
+    const sql = 'INSERT INTO company_profiles (user_id, state, city, company_name, industry_type, gst_number, registration_id) VALUES (?, ?, ?, ?, ?, ?, ?)';
+
+    db.query(sql,[user_id, state, city, company_name, industry_type, gst_number, registration_id], (err, result) => {
+
+        if ( errr ) {
+             console.log(err);
+        }
+    });
+
+    const sql2 = 'UPDATE users SET account_status = ? WHERE user_id = ?';
+
+    db.query(sql2, ['verified', user_id], (err) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+
+    res.json({
+        "message": "Company profile saved and user verified successfully"
+    })
+
+
+}
+
+
