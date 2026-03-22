@@ -80,6 +80,30 @@
         }
       }
 
+      else if (userRole === 'COMPANY') {
+
+          try {
+
+            const response = await fetch("http://localhost:5000/api/auth/verify-user-company", {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                state: formData.state,
+                city: formData.city,
+                company_name: formData.companyName,
+                industry_type: formData.industryType,
+                gst_number: formData.gstNumber,
+                registration_id: formData.registrationId
+              })
+            });
+
+          } catch (error) {
+            console.error("Company verification error: ", error);
+          }
+      }
     }
 
 
@@ -193,7 +217,7 @@
                 </>
               )}
 
-              {userRole === 'Company' && (
+              {userRole === 'COMPANY' && (
                 <>
                   <div className="field">
                     <label>Company Name</label>

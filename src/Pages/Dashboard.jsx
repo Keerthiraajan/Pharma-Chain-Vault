@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReasercherDashboard from "./ReasercherDashboard";
-//import CompanyDashboard from "./CompanyDashboard";
+import CompanyDashboard from "./CompanyDashboard,";
 
 const Dashboard = () => {
 
@@ -25,7 +25,7 @@ const Dashboard = () => {
         return;
       }
 
-      setRole(data.user.role); // ✅ set role here
+      setRole(data.user.role);  
       setChecking(false);
 
     })
@@ -42,6 +42,10 @@ const Dashboard = () => {
   if (role === "RESEARCHER") {
     return <ReasercherDashboard />;
   } 
+
+  else if (role === "COMPANY") {
+    return <CompanyDashboard />;
+  }
 
 };
 

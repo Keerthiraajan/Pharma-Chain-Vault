@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Router } from "react-router-dom";
 import LandingPage from "./Pages/LandingPage";
 import Login from "./Pages/LoginPage";
 import Register from "./Pages/Registration";
@@ -9,6 +9,7 @@ import UploadFormula from "./Pages/UploadFormula";
 import FormulasLayout from "./Components/FormulasLayout";
 import NotFound from "./Components/NotFound";
 import LicenseRequest from "./Pages/LicenseRequest";
+import CompanyDashboard from "./Pages/CompanyDashboard,";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="upload" element={<UploadFormula />} />
       </Route>
       <Route path = "/licenses" element = {<LicenseRequest />} />
+      <Route path="/cdashboard" element={<CompanyDashboard />} />
     </Routes>
     
   );
